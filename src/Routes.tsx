@@ -6,6 +6,8 @@ import Icon from 'react-native-vector-icons/Feather';
 import FindMovie from "./pages/FindMovie";
 import Home from "./pages/Home";
 import List from "./pages/List";
+import SelectPriority from "./pages/SelectPriority";
+import InspectMovie from "./pages/InspectMovie";
 
 const Tab = createBottomTabNavigator();
 
@@ -15,7 +17,7 @@ export default function Routes() {
         <Tab.Navigator
           screenOptions={({ route }): any => ({
             tabBarIcon: (color: string, size: number) => {
-              let iconName;
+              let iconName: string = '';
               size = 25;
               color = "#3C3C3C"
               switch (route.name) {
@@ -43,6 +45,8 @@ export default function Routes() {
         >
             <Tab.Screen name="Home" component={Home} />
             <Tab.Screen name="Find Movies" component={FindMovie} />
+            <Tab.Screen name="Inspect Movie" component={InspectMovie} />
+            <Tab.Screen name="Priority" component={SelectPriority} />
             <Tab.Screen name="My List" component={List} />
           
         </Tab.Navigator>

@@ -28,12 +28,13 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#0F171E",
     alignItems: "center",
-    justifyContent: "space-evenly",
   },
   text: {
     color: "#ffffff",
     fontSize: 30,
-    textAlign: 'center'
+    textAlign: 'center',
+    marginTop: 25,
+    marginBottom: 25
   },
   logo: {
     width: "100%",

@@ -14,7 +14,7 @@ export default function FindMovie() {
         onChangeText={this.updateSearch}
         value={search}
       /> */}
-      <Text>Funcionando</Text>
+      <Text style={styles.text}>Pagina em desenvolvimento</Text>
     </View>
   );
 }
@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 18,
+    color: "#FFFFFF"
   },
 });
 
