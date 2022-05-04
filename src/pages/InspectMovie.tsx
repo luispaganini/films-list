@@ -1,9 +1,11 @@
-import { Image, StyleSheet, View, Text, ScrollView, Pressable } from "react-native";
-import { useState } from "react";
+import { Image, StyleSheet, View, Text, ScrollView, Pressable, Button } from "react-native";
+import React, { useState } from "react";
 
 
-export default function InspectMovie() {
-  const [value, setValue] = useState('');
+export default function InspectMovie({ navigation }: any) {
+  const handleMyList = () => {
+    navigation.navigate("My List");
+  };
 
   return (
     <ScrollView style={styles.container}>
@@ -31,6 +33,9 @@ export default function InspectMovie() {
             <Text style={styles.textButton}>High</Text>
           </Pressable>
         </View>
+        <View style={styles.buttonConfirm}>
+          <Button title="Add To List" onPress={handleMyList} />
+      </View>
       </View>
     </ScrollView>
   );
@@ -83,5 +88,10 @@ const styles = StyleSheet.create({
   },
   textButton: {
     textAlign: "center"
+  },
+  buttonConfirm: {
+    marginBottom: 20,
+    marginRight: 10,
+    marginLeft: 10
   }
 });

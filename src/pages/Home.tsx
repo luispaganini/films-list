@@ -2,7 +2,7 @@ import { StyleSheet, View, Text, Button, Image } from "react-native";
 import React from "react";
 
 export default function Home({ navigation }: any) {
-  const handleAbout = () => {
+  const handleFindMovies = () => {
     navigation.navigate("Find Movies");
   };
 
@@ -16,7 +16,7 @@ export default function Home({ navigation }: any) {
       <Text style={styles.text}>Watch Movies and Series</Text>
 
       <View style={styles.button}>
-        <Button title="Find Movies" onPress={handleAbout} />
+        <Button title="Find Movies" onPress={handleFindMovies} />
       </View>
       
     </View>
