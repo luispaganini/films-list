@@ -1,9 +1,31 @@
 import { Image, StyleSheet, View, Text, ScrollView, Pressable, Button } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import api from "../services/api";
+import { ApiInterface } from "../interfaces/ApiInterface";
 
 
 export default function InspectMovie({ navigation }: any) {
-  const handleMyList = () => {
+  const [movie, setMovie]: any = useState([]);
+  const LOW = 1;
+  const MEDIUM = 2;
+  const HIGH = 3;
+
+  useEffect(() => {
+    api.get("/movie/tt0077766").then((response) => {
+      setMovie(response.data);
+    });
+  }, []);
+
+  const sendMovieLow = () => {
+    sendMovie(movie, LOW);
+    navigation.navigate("My List");
+  };  
+  const sendMovieMedium = () => {
+    sendMovie(movie, MEDIUM);
+    navigation.navigate("My List");
+  };
+  const sendMovieHigh = () => {
+    sendMovie(movie, HIGH);
     navigation.navigate("My List");
   };
 
@@ -12,33 +34,47 @@ export default function InspectMovie({ navigation }: any) {
       <View>
         <Image
           style={styles.logo}
-          source={{uri: "https://sm.ign.com/t/ign_br/screenshot/default/the-witcher-netflix-09_j82n.h960.jpg"}}
+          source={{uri: movie.poster}}
         />
-        <Text style={styles.textTitle}>The Witcher</Text>
-        <Text style={styles.text}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-          Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
-        </Text>
+        <Text style={styles.textTitle}>{movie.title}</Text>
+        <Text style={styles.text}>{movie.description}</Text>
         
-        <Text style={styles.text}>IMDb: 9.3</Text>
+        <Text style={styles.text}>IMDb: {movie.score}</Text>
 
         <Text style={styles.textTitle}>Priority</Text>
         <View style={styles.buttons}>
-          <Pressable style={styles.button}>
+          <Pressable style={styles.button} onPress={sendMovieLow}>
             <Text style={styles.textButton}>Low</Text>
           </Pressable>        
-          <Pressable style={styles.button2}>
+          <Pressable style={styles.button2} onPress={sendMovieMedium}>
             <Text style={styles.textButton}>Medium</Text>
           </Pressable>
-          <Pressable style={styles.button3}>
+          <Pressable style={styles.button3} onPress={sendMovieHigh}>
             <Text style={styles.textButton}>High</Text>
           </Pressable>
         </View>
-        <View style={styles.buttonConfirm}>
-          <Button title="Add To List" onPress={handleMyList} />
-      </View>
       </View>
     </ScrollView>
   );
+}
+
+async function sendMovie(movieApi: ApiInterface, priority: number) {
+  let movie = {
+    title: movieApi.title,
+    description: movieApi.description,
+    imdbId: movieApi.imdbId,
+    score: movieApi.score,
+    trailer: movieApi.trailer,
+    poster: movieApi.poster,
+    backdrop: movieApi.backdrop,
+    priorityLevel: priority
+  }
+  let createdMovie = await api.post("/movie", movie);
+  if (createdMovie.status === 201) {
+    console.log("Created!", createdMovie.data.model);
+  } else {
+    console.log("Error!", "This movie already exists.");
+  }
 }
 
 const styles = StyleSheet.create({
