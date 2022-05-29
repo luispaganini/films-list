@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text, TouchableOpacity, FlatList, Linking, Image, Button, Modal, TextInput, Pressable } from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity, FlatList, Linking, Image, Button, Modal, TextInput, Pressable, Keyboard } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import { ItemInterface } from "../interfaces/ItemInterface";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -11,7 +11,7 @@ const Item = ({ item, onPress, backgroundColor, textColor }: any) => (
   <TouchableOpacity onPress={onPress} style={[buttonStyle(), backgroundColor]}>
     <View>
       <Image
-        style={styles.buttonFacebookStyle}
+        style={styles.image}
         source={{uri: item.backdrop}}
       />
     </View>
@@ -64,8 +64,8 @@ export default function FindMovie() {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.searchBar}>
-        <TextInput value={searchMovie} onChangeText={setSearchMovie} placeholder="Search by movie" />
-        <Pressable onPress={findMovieHandler}>
+        <TextInput value={searchMovie} onChangeText={setSearchMovie} placeholder="Search by movie" onSubmitEditing={Keyboard.dismiss}/>
+        <Pressable onPress={findMovieHandler} onPressOut={Keyboard.dismiss}>
           <Icon name={"search"} size={25} color={"#494949"} />
         </Pressable>
       </View>
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: "white",
   },
-  buttonFacebookStyle: {
+  image: {
     flexDirection: 'row',
     alignItems: 'center',
     borderColor: '#fff',
@@ -121,7 +121,8 @@ const styles = StyleSheet.create({
     padding: 5,
     justifyContent: "space-between",
     width: "90%",
-    borderRadius: 10
+    borderRadius: 10,
+    marginBottom: 15
   }
 });
 

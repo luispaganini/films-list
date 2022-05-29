@@ -1,7 +1,8 @@
-import { Image, StyleSheet, View, Text, ScrollView, Pressable, Button } from "react-native";
+import { Image, StyleSheet, View, Text, ScrollView, Pressable, Button, Alert } from "react-native";
 import React, { useEffect, useState } from "react";
 import api from "../services/api";
 import { ApiInterface } from "../interfaces/ApiInterface";
+import { setStatusBarBackgroundColor } from "expo-status-bar";
 
 
 export default function InspectMovie({ navigation }: any) {
@@ -16,18 +17,23 @@ export default function InspectMovie({ navigation }: any) {
     });
   }, []);
 
-  const sendMovieLow = () => {
-    sendMovie(movie, LOW);
-    navigation.navigate("My List");
+  const movieVerification = (priority: number) => {
+    Alert.alert(
+      "Adding movie",
+      "Are you sure to add this movie to your movies list?",
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel"
+        },
+        { text: "Yes", onPress: () => {
+          sendMovie(movie, priority);
+          navigation.navigate("My List");
+        } }
+      ]
+    );
   };  
-  const sendMovieMedium = () => {
-    sendMovie(movie, MEDIUM);
-    navigation.navigate("My List");
-  };
-  const sendMovieHigh = () => {
-    sendMovie(movie, HIGH);
-    navigation.navigate("My List");
-  };
 
   return (
     <ScrollView style={styles.container}>
@@ -43,13 +49,16 @@ export default function InspectMovie({ navigation }: any) {
 
         <Text style={styles.textTitle}>Priority</Text>
         <View style={styles.buttons}>
-          <Pressable style={styles.button} onPress={sendMovieLow}>
+          <Pressable style={[styles.button, {backgroundColor: "green"}]}
+             onPress={() => {movieVerification(LOW)}}>
             <Text style={styles.textButton}>Low</Text>
           </Pressable>        
-          <Pressable style={styles.button2} onPress={sendMovieMedium}>
+          <Pressable style={[styles.button, {backgroundColor: "yellow"}]}
+             onPress={() => {movieVerification(MEDIUM)}}>
             <Text style={styles.textButton}>Medium</Text>
           </Pressable>
-          <Pressable style={styles.button3} onPress={sendMovieHigh}>
+          <Pressable style={[styles.button, {backgroundColor: "red"}]}
+             onPress={() => {movieVerification(HIGH)}}>
             <Text style={styles.textButton}>High</Text>
           </Pressable>
         </View>
@@ -58,7 +67,7 @@ export default function InspectMovie({ navigation }: any) {
   );
 }
 
-async function sendMovie(movieApi: ApiInterface, priority: number) {
+function sendMovie(movieApi: ApiInterface, priority: number) {
   let movie = {
     title: movieApi.title,
     description: movieApi.description,
@@ -69,12 +78,12 @@ async function sendMovie(movieApi: ApiInterface, priority: number) {
     backdrop: movieApi.backdrop,
     priorityLevel: priority
   }
-  let createdMovie = await api.post("/movie", movie);
-  if (createdMovie.status === 201) {
-    console.log("Created!", createdMovie.data.model);
-  } else {
-    console.log("Error!", "This movie already exists.");
-  }
+
+  api.post("/movie", movie).then(() => {
+    Alert.alert("Add movie", "Movie successfully added");
+  }).catch((error) => {
+    Alert.alert("Add movie", error.response.data);
+  });
 }
 
 const styles = StyleSheet.create({
@@ -110,17 +119,6 @@ const styles = StyleSheet.create({
   button: {
     width: 70,
     height: 25,
-    backgroundColor: "green"
-  },  
-  button2: {
-    width: 70,
-    height: 25,
-    backgroundColor: "yellow"
-  },
-  button3: {
-    width: 70,
-    height: 25,
-    backgroundColor: "red"
   },
   textButton: {
     textAlign: "center"
