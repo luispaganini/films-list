@@ -29,7 +29,7 @@ Um exemplo de model/DTO de dados que estão sendo trafegados:
     "poster": "https://image.tmdb.org/t/p/original/s2xcqSFfT6F7ZXHxowjxfG0yisT.jpg",
     "backdrop": "https://image.tmdb.org/t/p/w1920_and_h800_multi_faces//3nYlM34QhzdtAvWRV5bN4nLtnTc.jpg",
     "priorityLevel": 1
-  }
+}
 ```
 
 3. Na aplicação foi utilizado o axios para consumir a API, onde existem requisições GET, POST e futuramente DELETE.
