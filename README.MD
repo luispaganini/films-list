@@ -19,7 +19,7 @@ https://www.figma.com/file/AtefxQYpRpXHh9CYFaG6wt/Films-List?node-id=0%3A1
 
 Um exemplo de model/DTO de dados que estão sendo trafegados:
 
-<code>
+```json
 {
     "title": "Jaws",
     "description": "When an insatiable great white shark terrorizes the townspeople of Amity Island, the police chief, an oceanographer and a grizzled shark hunter seek to destroy the blood-thirsty beast.",
@@ -31,6 +31,7 @@ Um exemplo de model/DTO de dados que estão sendo trafegados:
     "priorityLevel": 1
   }
 </code> 
+```
 
 3. Na aplicação foi utilizado o axios para consumir a API, onde existem requisições GET, POST e futuramente DELETE.
 4. Foi usado na aplicação Alerts na Page InspectMovie, e será utilizado no futuro Modal em FindMovie e List.
