@@ -1,51 +1,24 @@
 import { StyleSheet, View, Text, TouchableOpacity, FlatList, Linking, Image, Button, Modal, TextInput, Pressable, Keyboard } from "react-native";
-import React, { useContext, useEffect, useState } from "react";
-import { ItemInterface } from "../interfaces/ItemInterface";
+import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import InspectMovie from "./InspectMovie";
 import api from "../services/api";
 import { ApiInterface } from "../interfaces/ApiInterface";
 import Icon from 'react-native-vector-icons/FontAwesome';
+import {Item} from "../components/ImageCard"; 
 
-const Item = ({ item, onPress, backgroundColor, textColor }: any) => (
-  <TouchableOpacity onPress={onPress} style={[buttonStyle(), backgroundColor]}>
-    <View>
-      <Image
-        style={styles.image}
-        source={{uri: item.backdrop}}
-      />
-    </View>
-     
-  </TouchableOpacity>
-);
 
 export default function FindMovie() {
   const [movies, setMovies] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
-  const [modalContent, setModalContent] = useState(null);
-  const [selectedId, setSelectedId] = useState(null);
+  const [selectedId, setSelectedId] = useState("tt0073196");
   const [searchMovie, setSearchMovie] = useState("");
+  
 
-  const handleYoutube = () => {
-    return (
-      <View>
-        <Modal
-        animationType="fade"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          // this callback runs when device "back" button is pressed
-          setModalVisible(!modalVisible);
-        }}
-        >
-          <InspectMovie></InspectMovie>
-        </Modal>
-      </View>
-    );
-    
-    //Linking.openURL("https://youtu.be/tjujvMkqWe4")
+  const handleModal = (imdbId: string) => {
+    setModalVisible(true);
+    setSelectedId(imdbId);
   };
-
 
   const renderItem = ({ item }: any) => {
     const backgroundColor: string = "#9C9C9C";
@@ -54,7 +27,7 @@ export default function FindMovie() {
     return (
       <Item
         item={item}
-        onPress={handleYoutube}
+        onPress={() => handleModal(item.imdbId)}
         backgroundColor={{ backgroundColor }}
         textColor={{ color }}
       />
@@ -64,8 +37,8 @@ export default function FindMovie() {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.searchBar}>
-        <TextInput value={searchMovie} onChangeText={setSearchMovie} placeholder="Search by movie" onSubmitEditing={Keyboard.dismiss}/>
-        <Pressable onPress={findMovieHandler} onPressOut={Keyboard.dismiss}>
+        <TextInput value={searchMovie} onChangeText={setSearchMovie} placeholder="Search by movie" onSubmitEditing={findMovieHandler}/>
+        <Pressable onPress={findMovieHandler}>
           <Icon name={"search"} size={25} color={"#494949"} />
         </Pressable>
       </View>
@@ -73,12 +46,23 @@ export default function FindMovie() {
         data={movies}
         renderItem={renderItem}
         keyExtractor={(item: ApiInterface) => item.imdbId}
-        extraData={selectedId}
       />
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          // this callback runs when device "back" button is pressed
+          setModalVisible(!modalVisible);
+        }}
+        >
+          <InspectMovie imdbId={selectedId}/>
+      </Modal>
     </SafeAreaView>
   );
 
   function findMovieHandler() {
+    Keyboard.dismiss;
     api.get(`/movie/name?name=${searchMovie}`).then((response) => {
       setMovies(response.data);
       console.log(response.data)
@@ -96,13 +80,6 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 18,
     color: "white",
-  },
-  image: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderColor: '#fff',
-    height: "100%",
-    borderRadius: 5,
   },
   content: {
     width: "80%",
@@ -125,15 +102,4 @@ const styles = StyleSheet.create({
     marginBottom: 15
   }
 });
-
-function buttonStyle() {
-  const style = {
-    button: {
-      width: 250,
-      height:100,
-      marginBottom: 10,
-    }
-  }
-  return style.button;
-}
 

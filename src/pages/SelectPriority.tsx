@@ -1,29 +1,7 @@
-import { View, Text, StyleSheet, FlatList, TouchableOpacity, SafeAreaView} from 'react-native'
+import { Text, StyleSheet, FlatList, TouchableOpacity, SafeAreaView} from 'react-native'
 import React, { useState } from 'react'
 import { ItemInterface } from '../interfaces/ItemInterface';
-
-const data = [
-  {
-    id: 1,
-    title: "High Priority",
-    color: "#FF3636"
-  },
-  {
-    id: 2,
-    title: "Medium Priority",
-    color: "#FFF73C"
-  },
-  {
-    id: 3,
-    title: "Low Priority",
-    color: "#75FF44"
-  },
-  {
-    id: 4,
-    title: "All Priorities",
-    color: "#2C80FF"
-  },
-]
+import { colorPriority } from '../components/colorPriorities/ColorPriorityData'; 
 
 const Item = ({ item, onPress, backgroundColor, textColor }: ItemInterface) => (
   <TouchableOpacity onPress={onPress} style={[buttonStyle(item.color), backgroundColor]}>
@@ -55,7 +33,7 @@ export default function SelectPriority({ navigation }: any) {
   return (
     <SafeAreaView style={styles.container}>
       <FlatList
-        data={data}
+        data={colorPriority}
         renderItem={renderItem}
         keyExtractor={(item) => item.id.toString()}
         extraData={selectedId}

@@ -2,7 +2,6 @@ import { Image, StyleSheet, View, Text, ScrollView, Pressable, Button, Alert } f
 import React, { useEffect, useState } from "react";
 import api from "../services/api";
 import { ApiInterface } from "../interfaces/ApiInterface";
-import { setStatusBarBackgroundColor } from "expo-status-bar";
 
 
 export default function InspectMovie({ navigation }: any) {
@@ -12,7 +11,7 @@ export default function InspectMovie({ navigation }: any) {
   const HIGH = 3;
 
   useEffect(() => {
-    api.get("/movie/tt0077766").then((response) => {
+    api.get(`/movie/tt4633694`).then((response) => {
       setMovie(response.data);
     });
   }, []);

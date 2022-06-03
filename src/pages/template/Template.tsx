@@ -8,3 +8,23 @@ export default function Template() {
     </View>
   )
 }
+
+// import { createContext, ReactNode } from "react";
+
+// interface ModalContextProps {
+//   show: Function;
+//   hide: Function;
+//   title: string;
+//   content: ReactNode;
+//   isVisible: boolean;
+// }
+
+// export const ModalContext = createContext<ModalContextProps>({
+//   show: () => {},
+//   hide: () => {},
+//   title: "",
+//   content: null,
+//   isVisible: false,
+// });
+
+//https://www.youtube.com/watch?v=su_xOZMiPKo&t=20s&ab_channel=Rocketseat

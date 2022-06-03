@@ -1,6 +1,6 @@
-import { NavigationContainer } from "@react-navigation/native";
+import { getFocusedRouteNameFromRoute, NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { StyleSheet, Text, View } from 'react-native';
+import  useLayoutEffect  from 'react';
 import Icon from 'react-native-vector-icons/Feather';
 
 import FindMovie from "./pages/FindMovie";
@@ -8,6 +8,7 @@ import Home from "./pages/Home";
 import List from "./pages/List";
 import SelectPriority from "./pages/SelectPriority";
 import InspectMovie from "./pages/InspectMovie";
+import React from "react";
 
 const Tab = createBottomTabNavigator();
 
@@ -31,7 +32,7 @@ export default function Routes() {
                   iconName = 'list';
                   break;
               }
-          
+
               return <Icon name={iconName} size={size} color={color} />;
             },
             tabBarOptions: {
@@ -45,7 +46,7 @@ export default function Routes() {
         >
             <Tab.Screen name="Home" component={Home} />
             <Tab.Screen name="Find Movies" component={FindMovie} />
-            <Tab.Screen name="Inspect Movie" component={InspectMovie} />
+            <Tab.Screen name="Inspect Movie" component={InspectMovie}/>
             <Tab.Screen name="Priority" component={SelectPriority} />
             <Tab.Screen name="My List" component={List} />
           
@@ -53,16 +54,3 @@ export default function Routes() {
     </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#0F171E",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  baixo: {
-    backgroundColor: "#3C3C3C",
-  },
-});
-
