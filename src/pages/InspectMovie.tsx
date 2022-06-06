@@ -6,6 +6,7 @@ import { ApiInterface } from "../interfaces/ApiInterface";
 
 export default function InspectMovie({ navigation }: any) {
   const [movie, setMovie]: any = useState([]);
+  const [isSuccessfull, setIsSuccessfull]: any = useState(false);
   const LOW = 1;
   const MEDIUM = 2;
   const HIGH = 3;
@@ -64,26 +65,29 @@ export default function InspectMovie({ navigation }: any) {
       </View>
     </ScrollView>
   );
-}
-
-function sendMovie(movieApi: ApiInterface, priority: number) {
-  let movie = {
-    title: movieApi.title,
-    description: movieApi.description,
-    imdbId: movieApi.imdbId,
-    score: movieApi.score,
-    trailer: movieApi.trailer,
-    poster: movieApi.poster,
-    backdrop: movieApi.backdrop,
-    priorityLevel: priority
+  function sendMovie(movieApi: ApiInterface, priority: number) {
+    let movie = {
+      title: movieApi.title,
+      description: movieApi.description,
+      imdbId: movieApi.imdbId,
+      score: movieApi.score,
+      trailer: movieApi.trailer,
+      poster: movieApi.poster,
+      backdrop: movieApi.backdrop,
+      priorityLevel: priority
+    }
+  
+    api.post("/movie", movie).then(() => {
+      setIsSuccessfull(true);
+      Alert.alert("Add movie", "Movie successfully added");
+    }).catch((error) => {
+      setIsSuccessfull(false);
+      Alert.alert("Add movie", error.response.data);
+    });
   }
-
-  api.post("/movie", movie).then(() => {
-    Alert.alert("Add movie", "Movie successfully added");
-  }).catch((error) => {
-    Alert.alert("Add movie", error.response.data);
-  });
 }
+
+
 
 const styles = StyleSheet.create({
   container: {

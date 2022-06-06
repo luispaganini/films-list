@@ -9,11 +9,11 @@ export default function List() {
   const [movies, setMovies] = useState([]);
 
 
-  useEffect(() => {
+  setTimeout(() => {
     api.get("/movies/priority/4").then((response) => {
       setMovies(response.data);
     });
-  }, []);
+  }, 500);
 
   return (
     <SafeAreaView style={styles.container}>
