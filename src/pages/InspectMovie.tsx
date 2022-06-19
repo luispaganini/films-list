@@ -1,18 +1,28 @@
-import { Image, StyleSheet, View, Text, ScrollView, Pressable, Button, Alert } from "react-native";
+import {
+  Image,
+  StyleSheet,
+  View,
+  Text,
+  ScrollView,
+  Pressable,
+  Button,
+  Alert,
+} from "react-native";
 import React, { useEffect, useState } from "react";
 import api from "../services/api";
 import { ApiInterface } from "../interfaces/ApiInterface";
 
-
-export default function InspectMovie({ navigation }: any) {
+export default function InspectMovie({ navigation, route }: any) {
   const [movie, setMovie]: any = useState([]);
   const [isSuccessfull, setIsSuccessfull]: any = useState(false);
   const LOW = 1;
   const MEDIUM = 2;
   const HIGH = 3;
 
+  const { imdbId } = route.params;
+
   useEffect(() => {
-    api.get(`/movie/tt4633694`).then((response) => {
+    api.get(`/movie/${imdbId}`).then((response) => {
       setMovie(response.data);
     });
   }, []);
@@ -25,40 +35,52 @@ export default function InspectMovie({ navigation }: any) {
         {
           text: "Cancel",
           onPress: () => console.log("Cancel Pressed"),
-          style: "cancel"
+          style: "cancel",
         },
-        { text: "Yes", onPress: () => {
-          sendMovie(movie, priority);
-          navigation.navigate("My List");
-        } }
+        {
+          text: "Yes",
+          onPress: () => {
+            sendMovie(movie, priority);
+            navigation.navigate("My List");
+          },
+        },
       ]
     );
-  };  
+  };
 
   return (
     <ScrollView style={styles.container}>
       <View>
-        <Image
-          style={styles.logo}
-          source={{uri: movie.poster}}
-        />
+        <Image style={styles.logo} source={{ uri: movie.poster }} />
         <Text style={styles.textTitle}>{movie.title}</Text>
         <Text style={styles.text}>{movie.description}</Text>
-        
+
         <Text style={styles.text}>IMDb: {movie.score}</Text>
 
         <Text style={styles.textTitle}>Priority</Text>
         <View style={styles.buttons}>
-          <Pressable style={[styles.button, {backgroundColor: "green"}]}
-             onPress={() => {movieVerification(LOW)}}>
+          <Pressable
+            style={[styles.button, { backgroundColor: "green" }]}
+            onPress={() => {
+              movieVerification(LOW);
+            }}
+          >
             <Text style={styles.textButton}>Low</Text>
-          </Pressable>        
-          <Pressable style={[styles.button, {backgroundColor: "yellow"}]}
-             onPress={() => {movieVerification(MEDIUM)}}>
+          </Pressable>
+          <Pressable
+            style={[styles.button, { backgroundColor: "yellow" }]}
+            onPress={() => {
+              movieVerification(MEDIUM);
+            }}
+          >
             <Text style={styles.textButton}>Medium</Text>
           </Pressable>
-          <Pressable style={[styles.button, {backgroundColor: "red"}]}
-             onPress={() => {movieVerification(HIGH)}}>
+          <Pressable
+            style={[styles.button, { backgroundColor: "red" }]}
+            onPress={() => {
+              movieVerification(HIGH);
+            }}
+          >
             <Text style={styles.textButton}>High</Text>
           </Pressable>
         </View>
@@ -74,20 +96,21 @@ export default function InspectMovie({ navigation }: any) {
       trailer: movieApi.trailer,
       poster: movieApi.poster,
       backdrop: movieApi.backdrop,
-      priorityLevel: priority
-    }
-  
-    api.post("/movie", movie).then(() => {
-      setIsSuccessfull(true);
-      Alert.alert("Add movie", "Movie successfully added");
-    }).catch((error) => {
-      setIsSuccessfull(false);
-      Alert.alert("Add movie", error.response.data);
-    });
+      priorityLevel: priority,
+    };
+
+    api
+      .post("/movie", movie)
+      .then(() => {
+        setIsSuccessfull(true);
+        Alert.alert("Add movie", "Movie successfully added");
+      })
+      .catch((error) => {
+        setIsSuccessfull(false);
+        Alert.alert("Add movie", error.response.data);
+      });
   }
 }
-
-
 
 const styles = StyleSheet.create({
   container: {
@@ -105,7 +128,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginLeft: 10,
     marginRight: 10,
-    textAlign:"justify",
+    textAlign: "justify",
     color: "#ffffff",
   },
   logo: {
@@ -114,21 +137,21 @@ const styles = StyleSheet.create({
   },
   buttons: {
     display: "flex",
-    flexDirection:"row",
+    flexDirection: "row",
     marginLeft: 10,
     marginTop: 10,
-    marginBottom: 30
+    marginBottom: 30,
   },
   button: {
     width: 70,
     height: 25,
   },
   textButton: {
-    textAlign: "center"
+    textAlign: "center",
   },
   buttonConfirm: {
     marginBottom: 20,
     marginRight: 10,
-    marginLeft: 10
-  }
+    marginLeft: 10,
+  },
 });

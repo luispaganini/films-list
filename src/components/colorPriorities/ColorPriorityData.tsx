@@ -1,6 +1,6 @@
 export const colorPriority = [
     {
-      id: 1,
+      id: 3,
       title: "High Priority",
       color: "#FF3636"
     },
@@ -10,7 +10,7 @@ export const colorPriority = [
       color: "#FFF73C"
     },
     {
-      id: 3,
+      id: 1,
       title: "Low Priority",
       color: "#75FF44"
     },

@@ -10,8 +10,9 @@ const Item = ({ item, onPress, backgroundColor, textColor }: ItemInterface) => (
 );
 
 export default function SelectPriority({ navigation }: any) {
-  const handleList = () => {
-    navigation.navigate("My List");
+  const handleList = (priority: number) => {
+    const params  = { priority };
+    navigation.navigate("My_List", params);
   };
 
   const [selectedId, setSelectedId] = useState(null);
@@ -23,7 +24,7 @@ export default function SelectPriority({ navigation }: any) {
     return (
       <Item
         item={item}
-        onPress={handleList}
+        onPress={() => handleList(item.id)}
         backgroundColor={{ backgroundColor }}
         textColor={{ color }}
       />

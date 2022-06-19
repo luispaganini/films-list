@@ -1,33 +1,30 @@
-import { StyleSheet, View, Text, TouchableOpacity, FlatList, Linking, Image, Button, Modal, TextInput, Pressable, Keyboard } from "react-native";
+import { StyleSheet, View, FlatList, TextInput, Pressable, Keyboard } from "react-native";
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import InspectMovie from "./InspectMovie";
 import api from "../services/api";
 import { ApiInterface } from "../interfaces/ApiInterface";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {Item} from "../components/ImageCard"; 
 
 
-export default function FindMovie() {
+export default function FindMovie({navigation} : any) {
   const [movies, setMovies] = useState([]);
-  const [modalVisible, setModalVisible] = useState(false);
-  const [selectedId, setSelectedId] = useState("tt0073196");
   const [searchMovie, setSearchMovie] = useState("");
-  
 
-  const handleModal = (imdbId: string) => {
-    setModalVisible(true);
-    setSelectedId(imdbId);
+
+  const handleNavigate = (imdbId: string) => {
+    const params = { imdbId };
+    navigation.navigate("Inspect_Movie", params);
   };
 
   const renderItem = ({ item }: any) => {
     const backgroundColor: string = "#9C9C9C";
-    const color: string = 'black';
+    const color: string = "black";
 
     return (
       <Item
         item={item}
-        onPress={() => handleModal(item.imdbId)}
+        onPress={() => handleNavigate(item.imdbId)}
         backgroundColor={{ backgroundColor }}
         textColor={{ color }}
       />
@@ -37,7 +34,12 @@ export default function FindMovie() {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.searchBar}>
-        <TextInput value={searchMovie} onChangeText={setSearchMovie} placeholder="Search by movie" onSubmitEditing={findMovieHandler}/>
+        <TextInput
+          value={searchMovie}
+          onChangeText={setSearchMovie}
+          placeholder="Search by movie"
+          onSubmitEditing={findMovieHandler}
+        />
         <Pressable onPress={findMovieHandler}>
           <Icon name={"search"} size={25} color={"#494949"} />
         </Pressable>
@@ -47,17 +49,6 @@ export default function FindMovie() {
         renderItem={renderItem}
         keyExtractor={(item: ApiInterface) => item.imdbId}
       />
-      <Modal
-        animationType="fade"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          // this callback runs when device "back" button is pressed
-          setModalVisible(!modalVisible);
-        }}
-        >
-          <InspectMovie imdbId={selectedId}/>
-      </Modal>
     </SafeAreaView>
   );
 
@@ -65,7 +56,6 @@ export default function FindMovie() {
     Keyboard.dismiss;
     api.get(`/movie/name?name=${searchMovie}`).then((response) => {
       setMovies(response.data);
-      console.log(response.data)
     });
   }
 }
@@ -99,7 +89,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     width: "90%",
     borderRadius: 10,
-    marginBottom: 15
-  }
+    marginBottom: 15,
+  },
 });
-

@@ -5,15 +5,21 @@ import api from "../services/api";
 import { ApiInterface } from "../interfaces/ApiInterface";
 import { renderItem } from "../components/renderCard";
 
-export default function List() {
+export default function List({ navigation, route }: any) {
   const [movies, setMovies] = useState([]);
-
-
-  setTimeout(() => {
-    api.get("/movies/priority/4").then((response) => {
-      setMovies(response.data);
-    });
-  }, 500);
+  const { priority } = route.params;
+  let isMounted = true;
+  useEffect(() => {
+    setTimeout(() => {
+      api.get(`/movies/priority/${priority}`).then((response) => {
+        if (isMounted)
+          setMovies(response.data);
+      });
+    }, 500);
+    return () => {
+      isMounted = false;
+      };
+  });
 
   return (
     <SafeAreaView style={styles.container}>
