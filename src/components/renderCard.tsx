@@ -1,5 +1,5 @@
 import { Linking } from "react-native";
-import { ApiInterface } from "../interfaces/ApiInterface";
+import { IApiInterface } from "../interfaces/IApiInterface";
 import { Item } from "./ImageCard";
 
 export const renderItem = ({ item }: any) => {

@@ -5,21 +5,21 @@ import {
   Text,
   ScrollView,
   Pressable,
-  Button,
   Alert,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import api from "../services/api";
-import { ApiInterface } from "../interfaces/ApiInterface";
+import { IApiInterface } from "../interfaces/IApiInterface";
+import { INavigationInterface } from "../interfaces/INavigationInterface";
 
-export default function InspectMovie({ navigation, route }: any) {
-  const [movie, setMovie]: any = useState([]);
-  const [isSuccessfull, setIsSuccessfull]: any = useState(false);
+export default function InspectMovie({ navigation, route }: INavigationInterface) {
+  const [movie, setMovie]: any = useState<Array<IApiInterface>>([]);
+  const [isSuccessfull, setIsSuccessfull] = useState<boolean>(false);
   const LOW = 1;
   const MEDIUM = 2;
   const HIGH = 3;
 
-  const { imdbId } = route.params;
+  const { imdbId }: any = route.params;
 
   useEffect(() => {
     api.get(`/movie/${imdbId}`).then((response) => {
@@ -87,7 +87,7 @@ export default function InspectMovie({ navigation, route }: any) {
       </View>
     </ScrollView>
   );
-  function sendMovie(movieApi: ApiInterface, priority: number) {
+  function sendMovie(movieApi: IApiInterface, priority: number) {
     let movie = {
       title: movieApi.title,
       description: movieApi.description,

@@ -2,12 +2,13 @@ import { StyleSheet, View, FlatList, TextInput, Pressable, Keyboard } from "reac
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import api from "../services/api";
-import { ApiInterface } from "../interfaces/ApiInterface";
+import { IApiInterface } from "../interfaces/IApiInterface";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {Item} from "../components/ImageCard"; 
+import { INavigationInterface } from "../interfaces/INavigationInterface";
 
 
-export default function FindMovie({navigation} : any) {
+export default function FindMovie({navigation} : INavigationInterface) {
   const [movies, setMovies] = useState([]);
   const [searchMovie, setSearchMovie] = useState("");
 
@@ -47,7 +48,7 @@ export default function FindMovie({navigation} : any) {
       <FlatList
         data={movies}
         renderItem={renderItem}
-        keyExtractor={(item: ApiInterface) => item.imdbId}
+        keyExtractor={(item: IApiInterface) => item.imdbId}
       />
     </SafeAreaView>
   );

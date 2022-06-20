@@ -2,12 +2,13 @@ import { StyleSheet, FlatList } from "react-native";
 import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import api from "../services/api";
-import { ApiInterface } from "../interfaces/ApiInterface";
+import {IApiInterface } from "../interfaces/IApiInterface";
 import { renderItem } from "../components/renderCard";
+import { INavigationInterface } from "../interfaces/INavigationInterface";
 
-export default function List({ navigation, route }: any) {
+export default function List({ navigation, route }: INavigationInterface) {
   const [movies, setMovies] = useState([]);
-  const { priority } = route.params;
+  const { priority }: any = route.params;
   let isMounted = true;
   useEffect(() => {
     setTimeout(() => {
@@ -26,7 +27,7 @@ export default function List({ navigation, route }: any) {
       <FlatList
         data={movies}
         renderItem={renderItem}
-        keyExtractor={(item: ApiInterface) => item.imdbId}
+        keyExtractor={(item: IApiInterface) => item.imdbId}
       />
     </SafeAreaView>
   );

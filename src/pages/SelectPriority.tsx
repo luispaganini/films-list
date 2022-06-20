@@ -1,15 +1,16 @@
 import { Text, StyleSheet, FlatList, TouchableOpacity, SafeAreaView} from 'react-native'
 import React, { useState } from 'react'
-import { ItemInterface } from '../interfaces/ItemInterface';
+import { IItemInterface } from '../interfaces/IItemInterface';
 import { colorPriority } from '../components/colorPriorities/ColorPriorityData'; 
+import { INavigationInterface } from '../interfaces/INavigationInterface';
 
-const Item = ({ item, onPress, backgroundColor, textColor }: ItemInterface) => (
+const Item = ({ item, onPress, backgroundColor, textColor }: IItemInterface) => (
   <TouchableOpacity onPress={onPress} style={[buttonStyle(item.color), backgroundColor]}>
     <Text style={[styles.text, textColor]}>{item.title}</Text>
   </TouchableOpacity>
 );
 
-export default function SelectPriority({ navigation }: any) {
+export default function SelectPriority({ navigation }: INavigationInterface) {
   const handleList = (priority: number) => {
     const params  = { priority };
     navigation.navigate("My_List", params);

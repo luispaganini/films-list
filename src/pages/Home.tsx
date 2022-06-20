@@ -1,7 +1,8 @@
 import { StyleSheet, View, Text, Button, Image } from "react-native";
 import React from "react";
+import { INavigationInterface } from "../interfaces/INavigationInterface";
 
-export default function Home({ navigation }: any) {
+export default function Home({ navigation }: INavigationInterface) {
   const handleFindMovies = () => {
     navigation.navigate("Find Movies");
   };
