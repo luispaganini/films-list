@@ -6,9 +6,13 @@ import {IApiInterface } from "../interfaces/IApiInterface";
 import { renderItem } from "../components/renderCard";
 import { INavigationInterface } from "../interfaces/INavigationInterface";
 
+type ListRouteParams = {
+  priority?: string;
+};
+
 export default function List({ navigation, route }: INavigationInterface) {
   const [movies, setMovies] = useState([]);
-  const { priority }: any = route.params;
+  const { priority }: ListRouteParams = route.params as ListRouteParams;
   let isMounted = true;
   useEffect(() => {
     setTimeout(() => {

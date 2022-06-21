@@ -12,6 +12,10 @@ import api from "../services/api";
 import { IApiInterface } from "../interfaces/IApiInterface";
 import { INavigationInterface } from "../interfaces/INavigationInterface";
 
+type InspectMovieRouteParams = {
+  imdbId?: string;
+};
+
 export default function InspectMovie({ navigation, route }: INavigationInterface) {
   const [movie, setMovie]: any = useState<Array<IApiInterface>>([]);
   const [isSuccessfull, setIsSuccessfull] = useState<boolean>(false);
@@ -19,7 +23,7 @@ export default function InspectMovie({ navigation, route }: INavigationInterface
   const MEDIUM = 2;
   const HIGH = 3;
 
-  const { imdbId }: any = route.params;
+  const { imdbId }: InspectMovieRouteParams = route.params as InspectMovieRouteParams;
 
   useEffect(() => {
     api.get(`/movie/${imdbId}`).then((response) => {
