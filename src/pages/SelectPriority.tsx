@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { IItemInterface } from '../interfaces/IItemInterface';
 import { colorPriority } from '../components/colorPriorities/ColorPriorityData'; 
 import { INavigationInterface } from '../interfaces/INavigationInterface';
+import { SelectPriorityStyle as styles } from '../styles/SelectPriorityStyle';
 
 const Item = ({ item, onPress, backgroundColor, textColor }: IItemInterface) => (
   <TouchableOpacity onPress={onPress} style={[buttonStyle(item.color), backgroundColor]}>
@@ -43,24 +44,6 @@ export default function SelectPriority({ navigation }: INavigationInterface) {
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: "#0F171E",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "space-around",
-      paddingTop: 30
-    },
-    text: {
-      fontWeight: 'bold',
-      paddingTop: 10,
-      color: "#000000",
-      fontSize: 21,
-      textAlign: 'center',
-    }
-});
 
 function buttonStyle(color: string) {
   const style = {

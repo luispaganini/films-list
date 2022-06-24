@@ -1,7 +1,7 @@
-import { StyleSheet, View, Text, Button, Image } from "react-native";
+import { StyleSheet, View, Text, Button, Image, ActivityIndicator } from "react-native";
 import React from "react";
 import { INavigationInterface } from "../interfaces/INavigationInterface";
-
+import { HomeStyle as styles } from "../styles/HomeStyle";
 export default function Home({ navigation }: INavigationInterface) {
   const handleFindMovies = () => {
     navigation.navigate("Find Movies");
@@ -19,29 +19,7 @@ export default function Home({ navigation }: INavigationInterface) {
       <View style={styles.button}>
         <Button title="Find Movies" onPress={handleFindMovies} />
       </View>
-      
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#0F171E",
-    alignItems: "center",
-  },
-  text: {
-    color: "#ffffff",
-    fontSize: 30,
-    textAlign: 'center',
-    marginTop: 25,
-    marginBottom: 25
-  },
-  logo: {
-    width: "100%",
-    height: 150,
-  },
-  button: {
-    width: 200
-  }
-});
