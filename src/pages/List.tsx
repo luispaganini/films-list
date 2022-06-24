@@ -1,4 +1,4 @@
-import { StyleSheet, FlatList, ScrollView, ActivityIndicator, Text } from "react-native";
+import { FlatList, ActivityIndicator, Text, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import api from "../services/api";
@@ -46,7 +46,7 @@ export default function List({ navigation, route }: INavigationInterface) {
           <Text style={styles.text}>
           You don't have any movies on your list.</Text>
         ): (
-          <></>
+          <View></View>
         )}
         
       </SafeAreaView>

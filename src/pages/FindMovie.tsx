@@ -1,4 +1,4 @@
-import { StyleSheet, View, FlatList, TextInput, Pressable, Keyboard, ActivityIndicator, Text, ScrollView } from "react-native";
+import { View, FlatList, TextInput, Pressable, Keyboard, ActivityIndicator, Text } from "react-native";
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import api from "../services/api";
@@ -13,7 +13,6 @@ export default function FindMovie({navigation} : INavigationInterface) {
   const [searchMovie, setSearchMovie] = useState("");
   const [isLoading, setLoading] = useState<boolean>(false);
   const [isFirstAccess, setFirstAcess] = useState<boolean>(true);
-
 
   const handleNavigate = (imdbId: string) => {
     const params = { imdbId };
@@ -54,13 +53,12 @@ export default function FindMovie({navigation} : INavigationInterface) {
         ): (
 
           <View>
-            
             <ActivityIndicator style={styles.loading} size="large" color="#00ff00" animating={isLoading} />
 
             <FlatList
-                    data={movies}
-                    renderItem={renderItem}
-                    keyExtractor={(item: IApiInterface) => item.imdbId} />
+              data={movies}
+              renderItem={renderItem}
+              keyExtractor={(item: IApiInterface) => item.imdbId} />
 
           </View>
         )} 
@@ -72,7 +70,10 @@ export default function FindMovie({navigation} : INavigationInterface) {
     setLoading(true);
     api.get(`/movie/name?name=${searchMovie}`).then((response) => {
       setMovies(response.data);
-    }).finally(() => {
+    }).catch((e) => {
+      console.log(e);
+    })
+    .finally(() => {
       setLoading(false);
     });
     setFirstAcess(false);

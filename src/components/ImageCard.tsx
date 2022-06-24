@@ -44,6 +44,8 @@ function buttonStyle(priority?: number) {
       width: 250,
       height:100,
       marginBottom: 10,
+      marginLeft: 15,
+      marginRight: 15,
       borderBottomWidth: 4,
       borderBottomColor: color
     }

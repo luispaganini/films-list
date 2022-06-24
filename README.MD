@@ -46,6 +46,5 @@ Um exemplo de model/DTO de dados que estão sendo trafegados:
 ## Cronograma
 1. Criar visual do projeto completo, finalizado em 12/05
 2. React navigation, finalizado em 28/04
-3. Consumir API, até dia 05/06
-4. Aplicar Modais, até dia 10/06
-5. Finalizar projeto até dia 15/06
+3. Consumir API, finalizado 24/06
+4. Finalizar projeto até dia 25/06

@@ -12,16 +12,6 @@ export const FindMovieStyle = StyleSheet.create({
       color: "white",
       textAlign: "center",
     },
-    content: {
-      width: "80%",
-      height: "80%",
-      margin: 8,
-      padding: 8,
-      backgroundColor: "white",
-      borderRadius: 8,
-      alignItems: "center",
-      justifyContent: "space-around",
-    },
     searchBar: {
       backgroundColor: "white",
       display: "flex",
@@ -34,11 +24,7 @@ export const FindMovieStyle = StyleSheet.create({
       marginTop: 25
     },
     loading: {
-      flex: 1,
-      flexDirection: "row",
-      display:"flex", 
-      alignItems: "center",
-      justifyContent: "center",
       position: "absolute",
+      alignSelf: "center"
     }
   });

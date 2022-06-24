@@ -46,7 +46,7 @@ export const InspectMovieStyle = StyleSheet.create({
       display:"flex", 
       alignItems: "center",
       justifyContent: "center",
-      position: "absolute",
-      flex: 1
+      position: "relative",
+      marginTop: "50%"
     }
   });
