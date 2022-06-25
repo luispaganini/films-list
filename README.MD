@@ -47,4 +47,4 @@ Um exemplo de model/DTO de dados que estão sendo trafegados:
 1. Criar visual do projeto completo, finalizado em 12/05
 2. React navigation, finalizado em 28/04
 3. Consumir API, finalizado 24/06
-4. Finalizar projeto até dia 25/06
+4. Projeto finalizado dia 24/06

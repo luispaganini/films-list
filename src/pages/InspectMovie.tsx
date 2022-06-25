@@ -12,13 +12,14 @@ import api from "../services/api";
 import { IApiInterface } from "../interfaces/IApiInterface";
 import { INavigationInterface } from "../interfaces/INavigationInterface";
 import { InspectMovieStyle as styles } from "../styles/InspectMovieStyle";
+import {MovieTuple} from "../interfaces/IMovieTupleType";
 
 type InspectMovieRouteParams = {
   imdbId?: string;
 };
 
 export default function InspectMovie({ navigation, route }: INavigationInterface) {
-  const [movie, setMovie]: any = useState([]);
+  const [movie, setMovie]: MovieTuple = useState<Array<IApiInterface>>([]);
   const [isSuccessfull, setIsSuccessfull] = useState<boolean>(false);
   const [isLoading, setLoading] = useState<boolean>(false);
   const LOW = 1;

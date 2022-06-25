@@ -1,6 +1,7 @@
 import { Image, StyleSheet, TouchableOpacity, View } from "react-native";
+import { ItemInterface } from "../interfaces/IItemInterface";
 
-export const Item = ({ item, onPress, backgroundColor }: any) => (
+export const Item = ({ item, onPress, backgroundColor }: ItemInterface) => (
 <TouchableOpacity onPress={onPress} style={[buttonStyle(item.priorityLevel), backgroundColor]}>
   <View>
     <Image
@@ -11,7 +12,6 @@ export const Item = ({ item, onPress, backgroundColor }: any) => (
     
 </TouchableOpacity>
 );
-
 
 const styles = StyleSheet.create({
   image: {

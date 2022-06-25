@@ -3,10 +3,10 @@ import { Item } from "./ImageCard";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { StyleSheet } from "react-native";
 import api from "../services/api";
+import { ItemType } from "../interfaces/IItemType";
 
-export const renderItem = ({ item }: any) => {
+export const renderItem = ({ item }: ItemType) => {
   const backgroundColor: string = "#9C9C9C";
-  const color: string = 'black';
 
   return (
     <View style={styles.card}>
@@ -14,7 +14,6 @@ export const renderItem = ({ item }: any) => {
       item={item}
       onPress={() => executeItem(item.priorityLevel, item.trailer)}
       backgroundColor={{ backgroundColor }}
-      textColor={{ color }}
       />
       <Pressable onPress={() => removeCard(item.imdbId)}>
         <Icon name="trash-o" size={35} color="white" style={styles.trash} />

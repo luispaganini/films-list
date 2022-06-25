@@ -6,12 +6,21 @@ import {IApiInterface } from "../interfaces/IApiInterface";
 import { renderItem } from "../components/renderCard";
 import { INavigationInterface } from "../interfaces/INavigationInterface";
 import { ListStyles as styles } from "../styles/ListStyles"; 
+import * as Localization from 'expo-localization';
+import i18n from 'i18n-js';
 
 type ListRouteParams = {
   priority?: string;
 };
+// Set the locale once at the beginning of your app.
+//i18n.locale = Localization.locale;
 
-export default function List({ navigation, route }: INavigationInterface) {
+export default function List({ route }: INavigationInterface) {
+  i18n.translations = {
+    en: { noMovie: "You don't have any movies on your list." },
+    ptbr: { noMovie: "Você não tem nenhum filme em sua lista." },
+    default: {noMovie: "You don't have any movies on your list."}
+  };
   const [movies, setMovies] = useState([]);
   const { priority }: ListRouteParams = route.params as ListRouteParams;
   const [isLoading, setLoading] = useState<boolean>(false);
@@ -43,8 +52,7 @@ export default function List({ navigation, route }: INavigationInterface) {
         )}
 
         {!(movies.length > 0) && (isLoading) ? (
-          <Text style={styles.text}>
-          You don't have any movies on your list.</Text>
+          <Text style={styles.text}>{i18n.t('noMovie')}</Text>
         ): (
           <View></View>
         )}

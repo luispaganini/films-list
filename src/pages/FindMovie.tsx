@@ -7,10 +7,18 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import {Item} from "../components/ImageCard"; 
 import { INavigationInterface } from "../interfaces/INavigationInterface";
 import { FindMovieStyle as styles } from "../styles/FindMovieStyle";
+import i18n from 'i18n-js';
+import { ItemType } from "../interfaces/IItemType";
 
 export default function FindMovie({navigation} : INavigationInterface) {
-  const [movies, setMovies]:any = useState([]);
-  const [searchMovie, setSearchMovie] = useState("");
+  i18n.translations = {
+    en: { welcome: "Your Welcome to Films-list.", haveFun: "Have fun!"},
+    ptbr: { welcome: "Seja Bem vindo ao Films-list.", haveFun: "Se divirta!"},
+    default: {welcome: "Your Welcome to Films-list.", haveFun: "Have fun!"}
+  };
+
+  const [movies, setMovies] = useState<Array<IApiInterface>>([]);
+  const [searchMovie, setSearchMovie] = useState<string>("");
   const [isLoading, setLoading] = useState<boolean>(false);
   const [isFirstAccess, setFirstAcess] = useState<boolean>(true);
 
@@ -19,16 +27,14 @@ export default function FindMovie({navigation} : INavigationInterface) {
     navigation.navigate("Inspect_Movie", params);
   };
 
-  const renderItem = ({ item }: any) => {
+  const renderItem = ({ item }: ItemType) => {
     const backgroundColor: string = "#9C9C9C";
-    const color: string = "black";
     
     return (
       <Item
         item={item}
         onPress={() => handleNavigate(item.imdbId)}
         backgroundColor={{ backgroundColor }}
-        textColor={{ color }}
       />
     );
   };
@@ -47,8 +53,8 @@ export default function FindMovie({navigation} : INavigationInterface) {
         </View>
         { isFirstAccess ? (
           <View>
-            <Text style={styles.text}>Your Welcome to Films-list.</Text>
-            <Text style={styles.text}>Have fun!</Text>
+            <Text style={styles.text}>{i18n.t('welcome')}</Text>
+            <Text style={styles.text}>{i18n.t('haveFun')}</Text>
           </View>
         ): (
 

@@ -1,10 +1,9 @@
-export interface IItemInterface {
-    item: {
-      id: number,
-      title: string,
-      color: string
-    },
-    onPress(): void,
-    backgroundColor: any,
-    textColor: any
+import { IApiInterface } from "./IApiInterface"
+
+export type ItemInterface = {
+  item: IApiInterface,
+  onPress(): void,
+  backgroundColor: {
+    backgroundColor: string
+  }
 }
