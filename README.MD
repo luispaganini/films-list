@@ -49,6 +49,9 @@ Um exemplo de model/DTO de dados que estão sendo trafegados:
 3. Consumir API, finalizado 24/06
 4. Projeto finalizado dia 24/06
 
+## APK
+https://drive.google.com/file/d/1uTQQ5v0djlEtn9AWcrarzhIBnlj4NpFE/view?usp=sharing
+
 ## Prints 
 <img src="https://github.com/luispaganini/films-list/blob/main/src/imgs/home.jpeg">
 
