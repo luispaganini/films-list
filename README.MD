@@ -50,7 +50,7 @@ Um exemplo de model/DTO de dados que estão sendo trafegados:
 4. Projeto finalizado dia 24/06
 
 ## Prints 
-<img src="https://github.com/luispaganini/films-list/tree/main/src/imgs/home.jpeg">
+<img src="https://github.com/luispaganini/films-list/blob/main/src/imgs/home.jpeg">
 
-<img src="https://github.com/luispaganini/films-list/tree/main/src/imgs/my-list.jpeg">
+<img src="https://github.com/luispaganini/films-list/blob/main/src/imgs/my-list.jpeg">
 
