@@ -1,9 +1,12 @@
 import { IApiInterface } from "./IApiInterface"
 
-export type ItemInterface = {
+export interface ItemInterface {
   item: IApiInterface,
   onPress(): void,
   backgroundColor: {
     backgroundColor: string
+  },
+  textColor?: {
+    color: string
   }
 }

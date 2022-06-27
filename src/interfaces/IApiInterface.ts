@@ -6,5 +6,6 @@ export interface IApiInterface {
     trailer: string,
     poster: string,
     backdrop: string,
-    priorityLevel: number
+    priorityLevel: number,
+    color: string
 }

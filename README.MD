@@ -48,3 +48,9 @@ Um exemplo de model/DTO de dados que estão sendo trafegados:
 2. React navigation, finalizado em 28/04
 3. Consumir API, finalizado 24/06
 4. Projeto finalizado dia 24/06
+
+## Prints 
+<img src="https://github.com/luispaganini/films-list/tree/main/src/imgs/home.jpeg">
+
+<img src="https://github.com/luispaganini/films-list/tree/main/src/imgs/my-list.jpeg">
+

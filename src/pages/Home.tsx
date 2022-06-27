@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text, Button, Image, ActivityIndicator } from "react-native";
+import { View, Text, Button, Image } from "react-native";
 import React from "react";
 import { INavigationInterface } from "../interfaces/INavigationInterface";
 import { HomeStyle as styles } from "../styles/HomeStyle";
